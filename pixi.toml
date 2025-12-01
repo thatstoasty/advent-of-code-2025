@@ -1,0 +1,22 @@
+[workspace]
+channels = ["conda-forge", "https://conda.modular.com/max", "https://prefix.dev/pixi-build-backends"]
+platforms = ["osx-arm64", "linux-64", "linux-aarch64"]
+
+[feature.util.tasks]
+day1 = "mojo src/01.mojo"
+
+# Linting and Formatting
+lint_docs = "python3 scripts/check-docstrings.py"
+mojo_format = "mojo format small_time --line-length 120"
+sort_imports = "isort **/*.mojo -m 3 --line-length 120 --lines-after-imports 2 --trailing-comma"
+format = [{ task = "mojo_format" }, { task = "sort_imports" }]
+
+[dependencies]
+mojo = ">=0.25.7.0,<0.26.1.0"
+
+[feature.util.dependencies]
+isort = ">=6.0.1,<7"
+
+[environments]
+default = { solve-group = "default" }
+util = { features = ["util"], solve-group = "default" }
