@@ -1,10 +1,4 @@
-import testing
 import math
-
-
-struct Direction:
-    comptime LEFT: Int = -1
-    comptime RIGHT: Int = 1
 
 
 fn turn_left(mut position: UInt, magnitude: UInt, mut counter: UInt):
