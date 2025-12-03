@@ -23,7 +23,6 @@ fn check_repeated_substring(block_size: Int, num: String, mut result: Int) raise
         # If we complete the loop without breaking, we found a match.
         if block == blocks - 1:
             result += Int(num)
-            print("Match found for", num, len(num), blocks, block_size, "New result:", result)
             return True
 
     return False
@@ -41,7 +40,6 @@ fn scan_number(number: Int, mut result: Int) raises:
             break
         if i == len(num) - 1:
             result += Int(num)
-            print("Match found for repeated", num, "New result:", result)
 
 
 fn main() raises:
