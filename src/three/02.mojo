@@ -1,9 +1,9 @@
 from algorithm import parallelize
 
 
-fn parse_highest_joltage[origin: ImmutOrigin](
-    line: StringSlice[origin], start: Int, reserved: Int, mut result: String
-) -> Int:
+fn parse_highest_joltage[
+    origin: ImmutOrigin
+](line: StringSlice[origin], start: Int, reserved: Int, mut result: String) -> Int:
     """Parse the highest joltage from the given line.
 
     The iteration over the line starts at `start`, and goes until the length of the line minus
@@ -15,7 +15,7 @@ fn parse_highest_joltage[origin: ImmutOrigin](
         start: The starting index to begin parsing from.
         reserved: The number of digits to reserve for future calls.
         result: The cumulative result string to write the highest joltage into.
-    
+
     Returns:
         The index of the highest joltage digit found.
     """
@@ -40,6 +40,7 @@ fn main() raises:
     # This function is used to parse the highest joltage for each line in parallel.
     # We write the resultant joltage as a String into a result list to convert and sum later.
     var results = List[String](fill="", length=len(lines))
+
     fn process_line(idx: Int) capturing:
         var result = String(capacity=12)
         _ = parse_highest_joltage(lines[idx], 0, 11, result)

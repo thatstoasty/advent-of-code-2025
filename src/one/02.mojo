@@ -17,7 +17,7 @@ fn turn_left(mut position: UInt, magnitude: UInt, mut counter: UInt):
     # How many full loops of 100 did we do? If this function is being called, we know it's at least 1.
     var loops = UInt(max(1, Int(math.ceil(abs(projected_position / 100)))))
     counter += loops - 1 if position == 0 else loops
-    position += loops * 100 # Offset to stay within 0-99 range.
+    position += loops * 100  # Offset to stay within 0-99 range.
     position -= magnitude
 
 
@@ -41,20 +41,20 @@ fn turn_right(mut position: UInt, magnitude: UInt, mut counter: UInt):
     # Since landing on 0 does not count as passing 0.
     if projected_position != 100:
         counter += loops
-    position -= loops * 100 # Offset to stay within 0-99 range.
+    position -= loops * 100  # Offset to stay within 0-99 range.
     if position + magnitude == 0 and counter > 0:
         counter -= 1
-        
+
     position += magnitude
 
 
 fn check_adjustment_outcome[origin: ImmutOrigin](line: StringSlice[origin], mut position: UInt) raises -> UInt:
     """Scan the line and adjust the lock position. Tracks how many times we pass and land on 0.
-    
+
     Args:
         line: The adjustment instruction.
         position: The current lock position.
-    
+
     Returns:
         The number of times we pass or land on 0 during this line.
     """
@@ -71,10 +71,10 @@ fn check_adjustment_outcome[origin: ImmutOrigin](line: StringSlice[origin], mut 
         turn_left(position, magnitude, counter)
     else:
         turn_right(position, magnitude, counter)
-    
+
     if position == 0:
         counter += 1
-    
+
     return counter
 
 
@@ -83,7 +83,7 @@ fn evaluate_data(data: String) raises -> UInt:
     var counter: UInt = 0
     for line in data.splitlines():
         counter += check_adjustment_outcome(line.strip(), position)
-        
+
     return counter
 
 

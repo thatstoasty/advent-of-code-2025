@@ -12,7 +12,7 @@ fn main() raises:
             # Uneven numbers can't have a repeated block of numbers.
             if len(num) % 2 != 0:
                 continue
-            
+
             # Check if the first half matches the second half. If so, cast back to Int and add to result.
             var middle = len(num) // 2
             if num[0:middle] == num[middle:]:

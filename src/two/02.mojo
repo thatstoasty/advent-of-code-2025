@@ -19,7 +19,7 @@ fn check_repeated_substring(block_size: Int, num: String, mut result: Int) raise
         # If any block does not match, we can break early.
         if num[0:block_size] != num[block * block_size : (block + 1) * block_size]:
             return False
-        
+
         # If we complete the loop without breaking, we found a match.
         if block == blocks - 1:
             result += Int(num)
@@ -33,7 +33,7 @@ fn scan_number(number: Int, mut result: Int) raises:
     for i in [2, 3, 4, 5]:
         if len(num) % i == 0 and check_repeated_substring(len(num) // i, num, result):
             return
-    
+
     var num_bytes = num.as_bytes()
     for i in range(len(num)):
         if num_bytes[0] != num_bytes[i]:
@@ -51,7 +51,7 @@ fn main() raises:
     for ids in data.split(","):
         var bounds = ids.split("-")
         var start = Int(bounds[0])
-        var end = Int(bounds[1]) + 1 # Range we check is inclusive
+        var end = Int(bounds[1]) + 1  # Range we check is inclusive
         for number in range(start, end):
             if number < 10:
                 continue

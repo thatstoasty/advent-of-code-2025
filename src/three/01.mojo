@@ -1,5 +1,6 @@
 from algorithm import parallelize
 
+
 fn main() raises:
     var data: String
     with open("data/03.txt", "r") as file:
@@ -7,6 +8,7 @@ fn main() raises:
     var lines = data.splitlines()
 
     var results = List[String](fill="", length=len(lines))
+
     fn process_line(idx: Int) capturing:
         var result = String(capacity=2)
         var left = 0
@@ -20,7 +22,7 @@ fn main() raises:
             if lines[idx][i] > lines[idx][right]:
                 right = i
         result.write(lines[idx][right])
-        results[idx] = (result)
+        results[idx] = result
 
     parallelize[process_line](len(lines))
     var result = 0

@@ -5,7 +5,7 @@ platforms = ["osx-arm64", "linux-64", "linux-aarch64"]
 [feature.util.tasks]
 # Linting and Formatting
 lint_docs = "python3 scripts/check-docstrings.py"
-mojo_format = "mojo format small_time --line-length 120"
+mojo_format = "mojo format src --line-length 120"
 sort_imports = "isort **/*.mojo -m 3 --line-length 120 --lines-after-imports 2 --trailing-comma"
 format = [{ task = "mojo_format" }, { task = "sort_imports" }]
 

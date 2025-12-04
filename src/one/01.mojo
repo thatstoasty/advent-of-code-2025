@@ -1,5 +1,6 @@
 import testing
 
+
 fn check_adjustment_outcome(line: StringSlice, mut position: Int) raises -> Bool:
     var direction = -1 if line[0] == "L" else 1
     var magnitude = Int(line[1:])
@@ -15,7 +16,7 @@ fn check_adjustment_outcome(line: StringSlice, mut position: Int) raises -> Bool
     position += adjustment + loop_offset
     if position == 0:
         return True
-    
+
     return False
 
 
@@ -25,7 +26,7 @@ fn evaluate_data(data: String) raises -> Int:
     for line in data.splitlines():
         if check_adjustment_outcome(line.strip(), position):
             counter += 1
-        
+
     return counter
 
 
