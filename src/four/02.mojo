@@ -2,6 +2,12 @@ from algorithm import parallelize
 
 
 @fieldwise_init
+struct Node(Copyable, Movable):
+    var row: Int
+    var col: Int
+
+
+@fieldwise_init
 struct Matrix:
     var data: List[List[String]]
 
@@ -26,9 +32,9 @@ struct Matrix:
             return True
         return False
 
-    fn is_roll_accessible(self, row: Int, col: Int) raises -> Bool:
+    fn is_roll_accessible(self, row: Int, col: Int) -> Bool:
         if row > len(self.data):
-            raise Error("Row is greater than row count of data.")
+            return False
 
         if self.data[row][col] != "@":
             return False
@@ -105,24 +111,37 @@ struct Matrix:
         return True
 
     fn count_accessible_rolls(mut self) raises -> Int:
-        var rolls_to_remove = List[Tuple[Int, Int]]()
+        var rolls_to_remove = List[Node](fill=Node(-1, -1), length=self.row_count() * self.column_count())
         var total_rolls_removed = 0
         var accessible_rolls = 0
 
+        var nodes = List[Node]()
+        for row in range(self.row_count()):
+            for col in range(self.column_count()):
+                nodes.append(Node(row, col))
+
+        fn check_node_accessibility(idx: Int) capturing:
+            if self.is_roll_accessible(nodes[idx].row, nodes[idx].col):
+                accessible_rolls += 1
+                var i = (nodes[idx].row * self.column_count()) + nodes[idx].col
+                print(i)
+                rolls_to_remove[i] = Node(nodes[idx].row, nodes[idx].col)
+                print(len(rolls_to_remove))
+
         while accessible_rolls > -1:
             accessible_rolls = 0
-            for row in range(self.row_count()):
-                for col in range(self.column_count()):
-                    if self.is_roll_accessible(row, col):
-                        accessible_rolls += 1
-                        rolls_to_remove.append((row, col))
-
+            # print("iter", accessible_rolls)
+            parallelize[check_node_accessibility](len(nodes))
             if accessible_rolls == 0:
                 break
 
             total_rolls_removed += accessible_rolls
+            # print("Accessible rolls this iteration:", total_rolls_removed, len(rolls_to_remove))
             for coordinate in rolls_to_remove:
-                self.data[coordinate[0]][coordinate[1]] = "."
+                if coordinate.row == -1:
+                    continue
+                print("Removing roll at (", coordinate.row, ", ", coordinate.col, ")")
+                self.data[coordinate.row][coordinate.col] = "."
 
         return total_rolls_removed
 
