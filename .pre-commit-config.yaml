@@ -5,11 +5,11 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: local
-    hooks:
-      - id: mojo-format
-        name: mojo-format
-        entry: pixi run format
-        language: system
-        files: '\.(mojo|🔥)$'
-        stages: [pre-commit]
+  # - repo: local
+  #   hooks:
+      # - id: mojo-format
+      #   name: mojo-format
+      #   entry: pixi run format
+      #   language: system
+      #   files: '\.(mojo|🔥)$'
+      #   stages: [pre-commit]

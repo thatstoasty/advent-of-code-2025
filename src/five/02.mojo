@@ -1,6 +1,3 @@
-from collections import Set
-
-
 @fieldwise_init
 @register_passable("trivial")
 struct Bounds(Copyable, Representable, Writable):
@@ -21,13 +18,6 @@ struct Bounds(Copyable, Representable, Writable):
 
     fn __repr__(self: Self) -> String:
         return String.write(self)
-
-
-fn is_in_bounds(num: Int, bounds: Span[Bounds]) -> Int:
-    for bound in bounds:
-        if bound.start <= num <= bound.finish:
-            return 1
-    return 0
 
 
 fn main() raises:
